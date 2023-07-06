@@ -2,6 +2,11 @@ use v5.12;
 use warnings;
 use Test::More;
 
+# Skip under windows
+if ($^O =~ /Win32/) {
+    plan skip_all => "Test not supported under Windows";
+    exit;
+}
 my $perl = $^X;
 # Set DEBUG variable
 $ENV{PHOTOBEAR_DEBUG} = 1;

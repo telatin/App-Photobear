@@ -39,14 +39,15 @@ if ($opt_api_key) {
     if (not defined $API_KEY) {#
         say STDERR YELLOW, "# Saving API KEY to $CONFIG_FILE", RESET if $opt_verbose;
         $CONFIG->{"api_key"} = $opt_api_key;
-        App::Photobear::saveconfig($CONFIG_FILE, $CONFIG);
+        App::Photobear::writeconfig($CONFIG_FILE, $CONFIG);
     }
     
 }
 
 if (not defined $API_KEY) {
-    say STDERR RED, "# No API KEY found [$CONFIG_FILE]", RESET if $opt_verbose;
-    say Dumper $CONFIG;
+    usage();
+    say STDERR RED, "\n# No API KEY found [$CONFIG_FILE]", RESET if $opt_verbose;
+    say STDERR "ERROR: API-KEY is required, add it to $CONFIG_FILE or use --api-key option, or the \$PHOTOBEAR_API_KEY environment variable";
     exit 1;
 }
 
@@ -56,11 +57,12 @@ my $url  = shift @ARGV;
 
 if (not defined $mode) {
     usage();
+    say STDERR RED, "\n ERROR: No command specified", RESET;
     exit 1;
 } elsif (not grep { $_ eq $mode } @MODES) {
     
     usage();
-    say STDERR "\nERROR: Unknown mode $mode";
+    say STDERR RED, "\nERROR: Unknown mode $mode", RESET;
     exit 1;
 }
 
@@ -198,3 +200,6 @@ Trace an image:
 
   photobear vectorization https://example.com/image.jpg -o outputdir
 
+=head1 REQUIREMENTS
+
+This program works under B<MacOS> and B<Linux>, and requires Perl 5.18 or higher and C<curl> to be installed.
