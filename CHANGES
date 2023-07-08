@@ -1,4 +1,8 @@
-2023-07-02  0.1.0
+2023-07-07  0.1.2
+
+* Update tests
+
+2023-07-02  0.1.1
 
 * Bug fix. 
 * Fixed tests: Windows is not supported.

@@ -8,14 +8,18 @@ use Data::Dumper;
 use JSON::PP;
 
 # Define version
-our $VERSION = '0.1.1';
+our $VERSION = '0.1.2';
+
+# Define constants
 our $PHOTOBEAR_URL = 'https://photobear.io/api/public/submit-photo';
 our @MODES = split / /, "background_removal vectorization super_resolution compress";
 our $TESTMODE = $ENV{"PHOTOBEAR_TEST"} || 0;
+
 # Export MODES
 use Exporter qw(import);
 our @EXPORT_OK = qw(loadconfig saveconfig url_exists curl photobear url_type @MODES);
 our $TEST_ANSWER = q({"status":"success","data":{"result_url":"https://res.cloudinary.com/dy4s1umzd/image/upload/e_vectorize:colors:20:detail:0.7:corners:20/v1688570702/svg_inp/aia14r/core-people.svg"}});
+
 sub loadconfig {
     my $filename = shift;
     if (! -e "$filename") {

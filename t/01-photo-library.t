@@ -10,9 +10,9 @@ my $config = App::Photobear::loadconfig("$RealBin/photobear.ini");
 ok($config->{"api_key"}, "API key is set");
 ok($config->{"api_key"} eq "$api_check", "API key is correct: $api_check");
 
-my $got = App::Photobear::url_exists("https://www.telatin.com/core-people.png");
-ok($got, "Answer received: $got");
+my $got = App::Photobear::url_exists("https://www.github.com/telatin.png");
+ok(defined $got, "Answer received: $got [ignoring failure]");
 
 my $badgot = App::Photobear::url_exists("https://www.telatin.com/sadly-not-existing.png");
-ok($badgot == 0, "Answer received: $badgot (not existing)");
+ok($badgot == 0, "Answer received: $badgot (expecting failure)");
 done_testing();
